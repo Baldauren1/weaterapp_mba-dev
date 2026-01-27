@@ -15,6 +15,7 @@ import com.example.weatherapppp.viewmodel.WeatherViewModel
 import com.example.weatherapppp.viewmodel.WeatherViewModelFactory
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     WeatherRepository(
                         weatherApi = RetrofitClient.weatherApi,
                         geoApi = RetrofitClient.geoApi,
-                        cache = WeatherCache(context)
+                        cache = WeatherCache(context),
                     )
                 }
 
@@ -40,4 +41,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
