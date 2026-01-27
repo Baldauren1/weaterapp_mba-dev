@@ -9,10 +9,17 @@ import com.example.weatherapppp.util.mapWeatherCode
 
 @Composable
 fun WeatherContent(
+    city: String,
     weather: WeatherResponse,
     isOffline: Boolean
 ) {
     Column {
+        Text(
+            text = city,
+            style = MaterialTheme.typography.titleLarge
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         //  Offline label
         if (isOffline) {

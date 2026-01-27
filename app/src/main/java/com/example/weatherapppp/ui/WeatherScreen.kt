@@ -54,6 +54,7 @@ fun WeatherScreen(
 
             is WeatherUiState.Success -> {
                 WeatherContent(
+                    city = city,
                     weather = state.weather,
                     isOffline = state.isOffline
                 )

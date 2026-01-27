@@ -1,18 +1,16 @@
 package com.example.weatherapppp.data.repository
 
-import android.content.Context
-import com.example.weatherapppp.data.api.RetrofitClient
+import com.example.weatherapppp.data.api.GeocodingApi
+import com.example.weatherapppp.data.api.WeatherApi
 import com.example.weatherapppp.data.local.WeatherCache
 import com.example.weatherapppp.data.model.WeatherResponse
 import java.io.IOException
 
 class WeatherRepository(
-    private val context: Context
+    private val weatherApi: WeatherApi,
+    private val geoApi: GeocodingApi,
+    private val cache: WeatherCache
 ) {
-
-    private val weatherApi = RetrofitClient.weatherApi
-    private val geoApi = RetrofitClient.geoApi
-    private val cache = WeatherCache(context)
 
     suspend fun getWeather(
         city: String,
