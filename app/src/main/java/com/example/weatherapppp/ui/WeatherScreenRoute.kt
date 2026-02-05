@@ -29,5 +29,5 @@ fun WeatherScreenRoute(
         if (city.isNotBlank()) vm.loadWeather(city.trim(), unit)
     }
 
-    WeatherScreen(viewModel = vm)
+    WeatherScreen(viewModel = vm, initialCity = city)
 }

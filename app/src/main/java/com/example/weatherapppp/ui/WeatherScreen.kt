@@ -12,11 +12,14 @@ import com.example.weatherapppp.viewmodel.WeatherUiState
 import com.example.weatherapppp.viewmodel.WeatherViewModel
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel) {
+fun WeatherScreen(
+    viewModel: WeatherViewModel,
+    initialCity: String = ""
+) {
     val context = LocalContext.current
     val prefsManager = remember { PreferencesManager(context) }
 
-    var city by remember { mutableStateOf("") }
+    var city by remember(initialCity) { mutableStateOf(initialCity) }
     var unit by remember { mutableStateOf(prefsManager.temperatureUnit) }
 
     LaunchedEffect(unit) {
@@ -27,7 +30,8 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
     }
 
     Column(modifier = Modifier.padding(16.dp)) {
-// Switch C/F
+
+        // Switch C/F
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -51,7 +55,10 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = { viewModel.loadWeather(city, unit) }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { viewModel.loadWeather(city, unit) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Search")
         }
 
@@ -61,6 +68,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             is WeatherUiState.Loading -> {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
             }
+
             is WeatherUiState.Error -> {
                 Text(
                     text = state.message,
@@ -68,6 +76,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
+
             is WeatherUiState.Success -> {
                 WeatherContent(
                     city = city,

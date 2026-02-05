@@ -1,5 +1,6 @@
 package com.example.weatherapppp.ui.screens
 
+import android.app.Application
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weatherapppp.data.favorites.FavoriteCity
@@ -14,9 +16,13 @@ import com.example.weatherapppp.data.favorites.FavoriteCity
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoritesScreen(
-    onOpenWeather: (String) -> Unit,
-    vm: FavoritesViewModel = viewModel()
+    onOpenWeather: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    val vm: FavoritesViewModel = viewModel(
+        factory = FavoritesViewModelFactory(context.applicationContext as Application)
+    )
+
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) { vm.start() }
